@@ -89,10 +89,12 @@ const colours = d3.scaleLinear()
     .domain([1, 10, 20])
     .range(["#0d08ad","#ffffff", "#7e0e1b"]);
 
-d3.csv("/GlobalLandTemperaturesByCountry.csv").then((readData) => {
+d3.json("/GlobalLandTemperaturesByCountryReduced.json").then((readData) => {
    data = readData;
-   d3.csv("/GlobalTemperatures.csv").then((readGlobalData) => {
+   console.log(data);
+   d3.json("/GlobalTemperaturesReduced.json").then((readGlobalData) => {
        globalData = readGlobalData;
+
        d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then((worldData) => {
             const countries = topojson.feature(worldData, worldData.objects.countries);
 

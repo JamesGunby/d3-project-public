@@ -39,19 +39,11 @@ countries.forEach((country) => {
    document.getElementById("lineChartCountrySelect").add(option);
 });
 
-d3.csv("/GlobalLandTemperaturesByCountry.csv").then((readData) => {
-    //Filters the data to ensure the data used is only between 1920 and 2013.
-    lcData = readData.filter(row => {
-        return moment(row.dt).isSameOrAfter("1920-01-01", "year")
-            && moment(row.dt).isSameOrBefore("2013-12-31", "year");
-    });
+d3.json("/GlobalLandTemperaturesByCountryReduced.json").then((readData) => {
+    lcData = readData;
 
-    d3.csv("/GlobalTemperatures.csv").then((readGlobalData) => {
-        //Filters the data to ensure the data used is only between 1920 and 2013.
-        lcGlobalData = readGlobalData.filter(row => {
-            return moment(row.dt).isSameOrAfter("1920-01-01", "year")
-                && moment(row.dt).isSameOrBefore("2013-12-31", "year");
-        });
+    d3.json("/GlobalTemperaturesReduced.json").then((readGlobalData) => {
+        lcGlobalData = readGlobalData;
 
         //Line graph's SVG is created
         lineChartSVG = d3.select("#lineGraph").append("svg")
