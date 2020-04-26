@@ -1,0 +1,123 @@
+.App {
+    text-align: center;
+}
+
+.background {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    position: center;
+    width: 100%;
+    height: 2360px;
+    text-align: center;
+}
+
+.worldMapArea {
+    width: 1500px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+
+.worldMap {
+    width: 1500px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mapArea {
+    width: 1500px;
+    display: flex;
+    flex-direction: row;
+}
+
+.map {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+}
+
+.innerMap {
+    background-color: white;
+}
+
+.mapLegend {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+}
+
+.legendText {
+    text-align: center;
+}
+
+.optionsBar {
+    width: 650px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    float: right;
+    padding: 10px;
+}
+
+.hoverOverArea {
+    width: 300px;
+}
+
+.hoveredCountryText{
+    font-size: 30px;
+    text-align: center;
+    fill: black;
+}
+
+.selectedMonthTempText{
+    font-size: 20px;
+    text-align: center;
+    fill: black;
+}
+
+.selectionArea {
+    width: 700px;
+    height: 100px;
+}
+
+span {
+    padding-right: 10px;
+}
+
+select {
+    margin-right: 15px;
+}
+
+.lineChartArea {
+    width: 1500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lineChartOptions {
+    width: 1500px;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    float: right;
+    padding: 10px;
+}
+
+.lineGraph {
+    width: 1500px;
+    height: 350px;
+    background-color: white;
+}
+
+.lineGraphInfoArea {
+    width: 1500px;
+    height: 70px;
+}
