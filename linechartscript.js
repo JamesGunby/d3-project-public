@@ -45,6 +45,8 @@ d3.json("/GlobalLandTemperaturesByCountryReduced.json").then((readData) => {
     d3.json("/GlobalTemperaturesReduced.json").then((readGlobalData) => {
         lcGlobalData = readGlobalData;
 
+        document.getElementById("lineGraph").innerHTML = "";
+
         //Line graph's SVG is created
         lineChartSVG = d3.select("#lineGraph").append("svg")
             .attr("width", 1350)

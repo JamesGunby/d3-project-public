@@ -327,7 +327,7 @@ d3.csv("cars.csv", function(error, data) {
 You can likewise pass an optional array of column names to [*dsv*.format](https://github.com/d3/d3-dsv/blob/master/README.md#dsv_format) to format only a subset of columns, or to specify the column order explicitly:
 
 ```js
-var string = d3.csvFormat(data, ["Year", "Model", "Length"]);
+var string = d3.csvFormat(countryData, ["Year", "Model", "Length"]);
 ```
 
 The parser is a bit faster and the formatter is a bit more robust: inputs are coerced to strings before formatting, fixing an obscure crash, and deprecated support for falling back to [*dsv*.formatRows](https://github.com/d3/d3-dsv/blob/master/README.md#dsv_formatRows) when the input *data* is an array of arrays has been removed.
@@ -691,7 +691,7 @@ The d3.geom.quadtree method has been replaced by [d3.quadtree](https://github.co
 ```js
 var quadtree = d3.geom.quadtree()
     .extent([[0, 0], [width, height]])
-    (data);
+    (countryData);
 ```
 
 Can be rewritten in 4.0 as:
@@ -699,7 +699,7 @@ Can be rewritten in 4.0 as:
 ```js
 var quadtree = d3.quadtree()
     .extent([[0, 0], [width, height]])
-    .addAll(data);
+    .addAll(countryData);
 ```
 
 The new quadtree implementation is vastly improved! It is no longer recursive, avoiding stack overflows when there are large numbers of coincident points. The internal storage is now more efficient, and the implementation is also faster; constructing a quadtree of 1M normally-distributed points takes about one second in 4.0, as compared to three seconds in 3.x.
@@ -882,7 +882,7 @@ Selections no longer subclass Array using [prototype chain injection](http://per
 Selections are now immutable: the elements and parents in a selection never change. (The elements’ attributes and content will of course still be modified!) The [*selection*.sort](https://github.com/d3/d3-selection/blob/master/README.md#selection_sort) and [*selection*.data](https://github.com/d3/d3-selection/blob/master/README.md#selection_data) methods now return new selections rather than modifying the selection in-place. In addition, [*selection*.append](https://github.com/d3/d3-selection/blob/master/README.md#selection_append) no longer merges entering nodes into the update selection; use [*selection*.merge](https://github.com/d3/d3-selection/blob/master/README.md#selection_merge) to combine enter and update after a data join. For example, the following [general update pattern](https://bl.ocks.org/mbostock/a8a5baa4c4a470cda598) in 3.x:
 
 ```js
-var circle = svg.selectAll("circle").data(data) // UPDATE
+var circle = svg.selectAll("circle").data(countryData) // UPDATE
     .style("fill", "blue");
 
 circle.exit().remove(); // EXIT
@@ -897,7 +897,7 @@ circle // ENTER + UPDATE
 Would be rewritten in 4.0 as:
 
 ```js
-var circle = svg.selectAll("circle").data(data) // UPDATE
+var circle = svg.selectAll("circle").data(countryData) // UPDATE
     .style("fill", "blue");
 
 circle.exit().remove(); // EXIT
@@ -1067,7 +1067,7 @@ var stack = d3.stack()
     .order(d3.stackOrderNone)
     .offset(d3.stackOffsetNone);
 
-var series = stack(data);
+var series = stack(countryData);
 ```
 
 The resulting array has one element per *series*. Each series has one point per month, and each point has a lower and upper value defining the baseline and topline:

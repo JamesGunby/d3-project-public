@@ -1,15 +1,13 @@
-/*James Gunby - B00713142*/
-/*CSCI4166 Final Project*/
 /*This JS file creates the two maps displayed in the tool.*/
 
-let data = [];
+let countryData = [];
 let globalData =[];
 
 const projection = d3.geoMercator();
 const pathGenerator = d3.geoPath().projection(projection);
 
-const leftSvg = d3.select("#leftMap");
-const rightSvg = d3.select("#rightMap");
+let leftSvg;
+let rightSvg;
 
 let leftPaths;
 let rightPaths;
@@ -89,14 +87,27 @@ const colours = d3.scaleLinear()
     .domain([1, 10, 20])
     .range(["#0d08ad","#ffffff", "#7e0e1b"]);
 
-d3.json("/GlobalLandTemperaturesByCountryReduced.json").then((readData) => {
-   data = readData;
-   console.log(data);
+d3.json("/GlobalLandTemperaturesByCountryReduced.json").then((readCountryData) => {
+   countryData = readCountryData;
+
    d3.json("/GlobalTemperaturesReduced.json").then((readGlobalData) => {
        globalData = readGlobalData;
 
        d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then((worldData) => {
             const countries = topojson.feature(worldData, worldData.objects.countries);
+
+           document.getElementById("leftInnerMap").innerHTML =
+               "<svg id=\"leftMap\" width=\"700\" height=\"550\">\n" +
+                    "<use xlink:href=\"#square\" transform=\"scale(0.5, 1)\"></use>\n" +
+               "</svg>";
+
+            document.getElementById("rightInnerMap").innerHTML =
+                "<svg id=\"rightMap\" width=\"700\" height=\"550\">\n" +
+                    "<use xlink:href=\"#square\" transform=\"scale(0.5, 1)\"></use>\n" +
+                "</svg>";
+
+            leftSvg = d3.select("#leftMap");
+            rightSvg = d3.select("#rightMap");
 
             //The world map topoJSON components form the left map.
             leftPaths = leftSvg.selectAll("path").data(countries.features);
@@ -143,7 +154,7 @@ function updateLeftMap() {
         const month = monthSelector.options[monthSelector.selectedIndex].value;
         const monthAsNumber = moment().month(month).format("MM");
         const monthAsNumberSingle = moment().month(month).format("M");
-        const filteredData = data.filter((row) => {
+        const filteredData = countryData.filter((row) => {
             //Sometimes d3 converts the dates from MM/DD/YYYY to YYYY-MM-DD automatically but other times it doesn't.
             //Additional check is added for either case.
             return row.dt.includes(year) && (row.dt.includes(`-${monthAsNumber}-01`)
@@ -264,7 +275,7 @@ function updateRightMap() {
         const month = monthSelector.options[monthSelector.selectedIndex].value;
         const monthAsNumber = moment().month(month).format("MM");
         const monthAsNumberSingle = moment().month(month).format("M");
-        const filteredData = data.filter((row) => {
+        const filteredData = countryData.filter((row) => {
             return row.dt.includes(year) && (row.dt.includes(`-${monthAsNumber}-01`)
             || row.dt.startsWith(`${monthAsNumberSingle}/1/`));
         });
@@ -330,7 +341,7 @@ function updateRightMap() {
                 }
             })
             .on("click", (d) => {
-                if (rightCountrySelected === undefined || rightSelectedArea.d !== d) {
+                if (rightCountrySelected === undefined || rightCountrySelected.d !== d) {
                     const countryData = getCountryData(filteredData, d);
                     d3.select("#rightSelectedCountryName")
                         .text(d.properties.name);
@@ -460,6 +471,8 @@ function renderLegend() {
         })
         .attr("width", 80)
         .attr("height", 20)
+        .attr("stroke-width", 2)
+        .attr("stroke", "darkgray")
         .attr("fill", (d) => {
             return (colours(d.domain));
         })
@@ -586,7 +599,7 @@ function getDomainData() {
     });
 
     domains.push({
-        range: "-50°-",
+        range: "-45°-",
         domain: 1
     });
 
