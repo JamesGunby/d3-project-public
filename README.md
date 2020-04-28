@@ -9,6 +9,8 @@ The data I chose to use from the project was complied by Berkley Earth and hoste
 
 This chosen data comprises of climate data spanning from the 18th century to 21st century. For the sake of accuracy, I limited the data to the 1920s and later. In order to best demonstrate changes in climate over time, I decided to have it represented by a pair of maps side-by-side where the user can change the represented month and year for each map individually, allowing for at-a-glance views of the change. A second line graph is also represented that shows the global average temperature for a selected month over time from 1920 to 2013. The user can also select a country for the line graph to see how that country's climate has changed over time.
 
+The grade for this project was an A-.
+
 ## Set up
 
 This project requires Node.js to be installed.
