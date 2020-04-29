@@ -16,7 +16,7 @@ The grade for this project was an A-.
 This project requires Node.js to be installed.
 
 1. In your terminal or command prompt, run `npm install http-server -g`
-1. In your terminal or command prompt, navigate to the fole folder where the project is stored and run the command `http-server`
+1. In your terminal or command prompt, navigate to the file folder where the project is stored and run the command `http-server`
 1. In your preferred browser, go to the URL `localhost:8080`.
 
 
